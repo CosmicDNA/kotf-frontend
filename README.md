@@ -14,7 +14,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ```bash
 # Clone BlockScout repo
-git clone git@github.com:blockscout/blockscout.git
+git clone https://github.com/blockscout/blockscout.git
 # Start Blokscout container at http://localhost:4000
 docker-compose -f ./blockscout/docker-compose/docker-compose-no-build-ganache.yml up -d
 ```
