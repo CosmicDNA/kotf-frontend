@@ -106,12 +106,15 @@ function App () {
 
   useEffect(() => {
     cachedConnect()
+  }, [cachedConnect])
+
+  useEffect(() => {
     if (providerSrc) {
       (async () => {
         await subscribeProvider(providerSrc)
       })()
     }
-  }, [cachedConnect, providerSrc])
+  }, [providerSrc])
 
   const warningAlert = (msg) => {
     toast.warning(msg, toastStyle)
