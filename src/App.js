@@ -52,7 +52,7 @@ function App () {
   const [walletAddress, setWalletAddress] = useState(null)
   const [depositAmount, setDepositAmount] = useState('')
 
-  const errorAlert = useCallback(async (msg) => {
+  const errorAlert = useCallback((msg) => {
     toast.error(msg, toastStyle)
   }, [])
 
@@ -173,7 +173,7 @@ function App () {
 
   const deposit = async (amount) => {
     try {
-      const receipt = await web3.eth.sendTransaction({ from: walletAddress, to: `${KingOfTheFools.address}`, value: depositAmount })
+      const receipt = await web3.eth.sendTransaction({ from: walletAddress, to: `${KingOfTheFools.address}`, value: amount })
       console.log(receipt)
       successAlert('Deposit Success!')
     } catch (err) {
