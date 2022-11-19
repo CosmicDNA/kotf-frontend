@@ -95,31 +95,23 @@ function App () {
 
   const cachedConnect = useCallback(async () => {
     if (web3Modal.cachedProvider) {
-      let hasProvider
       try {
         provider = await web3Modal.connect()
-        hasProvider = true
+        await connectionReaction()
       } catch (error) {
         console.log('provider error: ', error)
-        hasProvider = false
-      }
-      if (hasProvider) {
-        await connectionReaction()
       }
     }
   }, [connectionReaction])
 
   useEffect(() => {
     cachedConnect()
-  }, [cachedConnect])
-
-  useEffect(() => {
     if (providerSrc) {
       (async () => {
         await subscribeProvider(providerSrc)
       })()
     }
-  }, [providerSrc])
+  }, [cachedConnect, providerSrc])
 
   const warningAlert = (msg) => {
     toast.warning(msg, toastStyle)
@@ -131,21 +123,16 @@ function App () {
 
   const connect = async () => {
     if (web3Modal) {
-      let hasProvider
       try {
         provider = await web3Modal.connect()
-        hasProvider = true
-      } catch (error) {
-        console.log('provider error: ', error)
-        hasProvider = false
-      }
-      if (hasProvider) {
         try {
           await subscribeProvider(provider)
         } catch (error) {
           console.log('subscribe error: ', error)
         }
         await connectionReaction()
+      } catch (error) {
+        console.log('provider error: ', error)
       }
     } else {
       console.log('web3Modal is null')
